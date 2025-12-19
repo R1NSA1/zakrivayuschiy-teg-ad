@@ -246,7 +246,7 @@
         </article>
       </li>
     </ul>
-    <button class="button__popup-open button" type="button" onclick="window['popup-id'].showModal()" aria-controls="popup-id">
+    <button class="button__popup-open button" type="button" aria-controls="popup-id">
       <svg width="21" height="21" viewBox="0 0 40 40" class="icon-floppy" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <use href="svg/floppy.svg#floppy"></use>
       </svg>
@@ -259,11 +259,42 @@
         </svg>
         <p class="text__popup">Вставьте дискету, чтобы продолжить</p>
       </div>
-      <button class="button__popup-close button" type="button" onclick="window['popup-id'].close()" aria-controls="popup-id">
+      <button class="button__popup-close button" type="button" aria-controls="popup-id">
         <span class="button__text">ок</span>
       </button>
     </dialog>
   </main>
   <script src="./scripts/like.js"></script>
+  <script>
+    // Добавляем обработчики для модального окна
+    document.addEventListener('DOMContentLoaded', function() {
+      const openButton = document.querySelector('.button__popup-open');
+      const closeButton = document.querySelector('.button__popup-close');
+      const modal = document.getElementById('popup-id');
+      
+      if (openButton && modal) {
+        openButton.addEventListener('click', function(event) {
+          event.preventDefault(); // Предотвращаем перезагрузку
+          modal.showModal();
+        });
+      }
+      
+      if (closeButton && modal) {
+        closeButton.addEventListener('click', function(event) {
+          event.preventDefault(); // Предотвращаем перезагрузку
+          modal.close();
+        });
+      }
+      
+      // Также добавляем обработчик для самого dialog
+      if (modal) {
+        modal.addEventListener('click', function(event) {
+          if (event.target === modal) {
+            modal.close();
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
